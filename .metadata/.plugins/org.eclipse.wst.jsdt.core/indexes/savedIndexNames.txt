@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+E:\Projetos\Udemy\Javaserver-Faces\Projeto Curso JSF\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2467687319.index
+1422281499.index
+3013601080.index
+3146738111.index
+2533526589.index
+4051497527.index
+3458294959.index

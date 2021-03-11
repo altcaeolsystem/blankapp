@@ -1,0 +1,123 @@
+package br.eti.amazu.infra.view.bean;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.eti.amazu.infra.util.FacesUtil;
+import br.eti.amazu.infra.util.log.Log;
+import br.eti.amazu.infra.view.vo.Config;
+
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+
+import org.apache.log4j.Level;
+
+@Named
+@SessionScoped
+public class ConfigBean implements Serializable{
+	
+	private static final long serialVersionUID = -6663659948453061860L;
+	
+	//O objeto config contem as variaveis de configuracoes do sistema.
+	private Config config;
+	
+	private String skinTheme;
+	
+	//Armazena uma lista de idiomas suportados.
+	private List<String> locales = new ArrayList<String>();
+	
+	public void setConfiguracoes(){
+		
+		/* Aqui carregando parametros defalt, a titulo de demonstracao.
+		 * Esses dados serao obtidos de um arquivo de configuracoes. */
+			
+		config = new Config();
+		
+		/* TIPOS DE MENU: 
+		 * - menuBar ----------HORIZONTAL (default)
+		 * - tiered ---------— VERTICAL
+		 * - slide ----------- VERTICAL
+		 * - panelMenu ------- VERTICAL */	
+		config.setMenuType("menuBar"); //O menu default eh menuBar (horizontal).	
+
+		//Setando os diversos parametros de skin para o aplicativo.
+		config.setSkinAnimatedTop("F"); //..........................Topo default "nao-animado".
+		config.setSkinBackground("vetruvian"); //...................Skin default - vetruvian.
+		config.setSkinImageLogo("amazuLogo.gif"); //................Imagem logotipo da empresa.
+		config.setSkinLogo("T"); //.................................Topo - logotipo da empresa.
+		config.setSkinTextLogo("Tecnologia Java"); //...............Texto abaixo do logotipo.
+		config.setSkinColorTextLogo("13f02d"); //...................A cor do texto do logotipo;	
+		config.setSkinAnimatedHtml("blankapp_topo_anime.xhtml"); //.O Html5 animado.
+
+		//Isto eh o que serah escrito no rodapeh da pagina.
+		config.setSkinFooter("Privacy Policy | Amazu Technology | Copyright \u00A9 2018 -" 								
+				+ " All rights reserved");
+				
+		//O tema default eh o aristo.
+		skinTheme="aristo";	
+		config.setSkinTheme("primefaces-" + skinTheme); 
+			
+		//logs
+		Log.setLogger(ConfigBean.class, "Rodando o tema: " + config.getSkinTheme(), Level.INFO);
+		Log.setLogger(ConfigBean.class, "Rodando o skin: " + config.getSkinBackground(), Level.INFO);
+		Log.setLogger(ConfigBean.class, "Rodando o menu: " + config.getMenuType(), Level.INFO);
+	}
+	
+	public void saveTheme(){
+		config.setSkinTheme("primefaces-" + skinTheme);		
+	}
+	
+
+	/*---------
+	 * get/set
+	 ---------*/	
+	public Config getConfig() {
+		if(config == null){
+			this.setConfiguracoes();
+		}
+
+		return config;
+	}
+	
+	public void setConfig(Config config) {
+		this.config = config;
+	}	
+
+	public String getSkinTheme() {
+		return skinTheme;
+	}
+	public void setSkinTheme(String skinTheme) {
+		this.skinTheme = skinTheme;
+	}	
+	public List<String> getLocales() {
+		
+		//Utliza a classe FacesUtil para obter a lista de idiomas suportados.
+		if(locales.isEmpty()){
+			locales = FacesUtil.getLocales();
+			
+			//realiza apenas um log
+			StringBuffer strb = new StringBuffer();
+			strb.append("Linguagens suportadas: ");
+			
+			int i=1;
+			for(String str:locales){				
+				if(i == locales.size()){
+					strb.append(str);
+					
+				}else{
+					strb.append(str + ", ");
+				}
+				i++;
+			}
+			Log.setLogger(ConfigBean.class, strb.toString(), Level.INFO);
+		}
+		return locales;
+	}
+	
+	public void setLocales(List<String> locales) {
+		this.locales = locales;
+	}
+
+}
+

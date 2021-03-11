@@ -1,0 +1,15 @@
+<html>
+
+	<head>
+		<meta http-equiv="refresh" content="1;url=pages/home/homePage.faces">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">								 
+		<title>Aguarde...</title>
+	</head>
+
+	<h:body>
+		<h1>HELLO JSF 2.3</h1>
+	</h:body>
+
+
+</html>

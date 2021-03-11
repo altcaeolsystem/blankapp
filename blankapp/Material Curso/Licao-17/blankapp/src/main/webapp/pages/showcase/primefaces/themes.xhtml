@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	template="/WEB-INF/layout/template.xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://java.sun.com/jsf/composite/components">
+	
+	<ui:param name="pageTitle" value="Themes"/>
+    
+	<ui:define name="content">
+          	
+		<h:form>			
+				<p:themeSwitcher style="width:150px;" effect="fade" 
+					value="#{configBean.skinTheme}">
+					<p:ajax listener="#{configBean.saveTheme}" /> 
+	    			<f:selectItem itemLabel="Choose Theme" itemValue="" />
+						<f:selectItem itemLabel="delta" itemValue="delta" />  
+						<f:selectItem itemLabel="sunny" itemValue="sunny" />   
+						<f:selectItem itemLabel="vader" itemValue="vader" />   
+						<f:selectItem itemLabel="afterdark" itemValue="afterdark" />  
+	  		</p:themeSwitcher>	
+				<br/>
+	        
+				<p:calendar  mode="inline"></p:calendar>        
+				<br/>
+	        
+				<p:commandButton value="Show Case"  
+					action="/pages/showcase/homeShowCase?faces-redirect=true"/>
+	
+		</h:form>			
+	</ui:define>
+</ui:composition>
